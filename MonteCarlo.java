@@ -2,12 +2,12 @@ public class MonteCarlo {
 
     public static void main(String[] args) {
         int trials = 0;
-        int days = 1;
         int totalDays = 0;
         int totalInfected = 0;
 
         while (trials < 10000) {
             int infected = 1;
+            int days = 1;
 
             int n = 20; // number of computers in the network
             int r = 5; // max number of computers cleaned daily
@@ -48,6 +48,7 @@ public class MonteCarlo {
 
             //while loop to count days until virus removed from system
             while (infected != 0) {
+
                 //clean - remove 5 infected
                 int count = 1;
                 for (int i = 0; i < n; i++) {
@@ -68,6 +69,22 @@ public class MonteCarlo {
                 }
                 if (temp > 0) {
                     days++;
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n; j++) {
+                            if ((comps[i] == 1) && (comps[j] == 0)) {
+                                int x = MyBernoulli(p);
+                                if (x == 1) {
+                                    comps[j] = 2;
+                                }
+                            }
+                        }
+                    }
+                    for (int i = 0; i < n; i++) {
+                        if (comps[i] == 2) {
+                            comps[i] = 1;
+                            infected++;
+                        }
+                    }
                 }
 
             }
@@ -76,7 +93,8 @@ public class MonteCarlo {
         }
         double avgInfected = (double) totalInfected / (trials);
         double probInfected = (double) totalInfected / (20*trials);
-        System.out.println("Average days to remove from system: " + (totalDays/trials));
+        double remInfected = (double) totalDays / trials;
+        System.out.println("Average days to remove from system: " + remInfected);
         System.out.println("Probability that each computer gets infected: " + probInfected);
         System.out.println("Expected number of computers that get infected: " + avgInfected);
     }
