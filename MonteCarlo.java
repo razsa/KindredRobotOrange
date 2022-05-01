@@ -4,6 +4,7 @@ public class MonteCarlo {
         int trials = 0;
         int days = 1;
         int totalDays = 0;
+        int totalInfected = 0;
 
         while (trials < 10000) {
             int infected = 1;
@@ -43,6 +44,7 @@ public class MonteCarlo {
                     infected++;
                 }
             }
+            totalInfected += infected;
 
             //while loop to count days until virus removed from system
             while (infected != 0) {
@@ -72,7 +74,11 @@ public class MonteCarlo {
             totalDays += days;
             trials++;
         }
-        System.out.println("Average days to remove from system: " + totalDays/trials);
+        double avgInfected = (double) totalInfected / (trials);
+        double probInfected = (double) totalInfected / (20*trials);
+        System.out.println("Average days to remove from system: " + (totalDays/trials));
+        System.out.println("Probability that each computer gets infected: " + probInfected);
+        System.out.println("Expected number of computers that get infected: " + avgInfected);
     }
 
 
@@ -87,6 +93,7 @@ public class MonteCarlo {
         }
         return X;
     }
+
 
 }
 
