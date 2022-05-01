@@ -5,7 +5,7 @@ public class MonteCarlo {
         int totalDays = 0;
         int totalInfected = 0;
 
-        while (trials < 150000) {
+        while (trials < 10000) {
             int infected = 1;
             int days = 1;
 
